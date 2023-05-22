@@ -22,3 +22,9 @@ const movieSchema = new mongoose.Schema(
 );
 
 //TODO: finish the Subscriptions Schema
+
+const Members = mongoose.model('members', memberSchema)
+const Movies = mongoose.model('movies', movieSchema)
+
+module.exports = Members;
+module.exports = Movies;
