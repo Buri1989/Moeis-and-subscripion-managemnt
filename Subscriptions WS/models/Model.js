@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 /*Members Schema */
 const memberSchema = new mongoose.Schema(
     {
+        _id: mongoose.Schema.Types.ObjectId,
         name: String,
         email: String,
         city: String
@@ -13,6 +14,7 @@ const memberSchema = new mongoose.Schema(
 /*Movies Schema */
 const movieSchema = new mongoose.Schema(
     {
+        _id: mongoose.Schema.Types.ObjectId,
         name: String,
         genres: [String],
         image: String,
