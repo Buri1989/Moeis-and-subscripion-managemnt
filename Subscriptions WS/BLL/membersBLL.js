@@ -2,8 +2,7 @@ const { model } = require('mongoose');
 const membersWS = require('../DAL/membersWS');
 
 const fetchMembersDataIntoDB = async () => {
-    const response = await membersWS.getAllMembers();
-    let membersData = response.data;
+    const { data: membersData } = await membersWS.getAllMembers();
     return membersData;
 };
 
