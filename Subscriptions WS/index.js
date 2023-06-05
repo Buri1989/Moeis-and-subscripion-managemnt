@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const connectDB = require('./configs/db');
-//const membersRouter = require('./routers/membersRouter');
+
 const moviesRouter = require('./routers/moviesRouter')
 
 
@@ -14,7 +14,7 @@ app.use(cors());
 app.use(express.json());
 
 /*Routers */
-//app.use('/members', membersRouter);
+
 app.use('/movies', moviesRouter);
 
 
