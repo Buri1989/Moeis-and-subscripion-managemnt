@@ -5,7 +5,7 @@ const connectDB = () => {
         useNewUrlParser: true,
         useUnifiedTopology: true,
     }).then(() =>
-        console.log('Connected to subscriptionsDB!')).catch((error) => console.log(error.errmsg))
+        console.log('Connected to subscriptionsDB!')).catch((err) => console.log(err.message))
 };
 
 module.exports = connectDB
