@@ -1,5 +1,5 @@
 const membersWS = require('../DAL/membersWS');
-const Member = require('../models/Model');
+const Member = require('../models/ModelMembers');
 
 const fetchMemberData = async () => {
     try {

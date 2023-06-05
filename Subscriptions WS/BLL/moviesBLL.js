@@ -1,5 +1,5 @@
 const movieWS = require('../DAL/moviesWS');
-const Movie = require('../models/Model');
+const Movie = require('../models/ModelMovies');
 
 const fetchMoviesData = async () => {
     try {
