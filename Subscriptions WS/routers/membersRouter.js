@@ -3,6 +3,7 @@ const membersBLL = require('../BLL/membersBLL');
 
 const router = express.Router();
 
+/*Entry point - 'http://localhost:8888/members'  */
 router.route('/').get(async (req, res) => {
     try {
         const members = await membersBLL.storeMembersData();

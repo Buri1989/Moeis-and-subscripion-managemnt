@@ -3,6 +3,7 @@ const moviesBLL = require('../BLL/moviesBLL');
 
 const router = express.Router();
 
+/*Entry point - 'http://localhost:8888/movies' */
 router.route('/').get(async (req, res) => {
     try {
         const movies = await moviesBLL.storeMoviesData();
