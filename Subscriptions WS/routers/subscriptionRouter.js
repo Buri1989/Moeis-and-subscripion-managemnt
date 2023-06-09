@@ -4,6 +4,7 @@ const Movie = require('../models/ModelMovies');
 
 const router = express.Router();
 
+/*Entry point - 'http://localhost:8888/subscriptions' */
 /*Get all movies and dates in the subscription collection */
 router.route('/').get(async (req, res) => {
     try {
