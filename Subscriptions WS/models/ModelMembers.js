@@ -3,10 +3,10 @@ const mongoose = require('mongoose');
 /*Members Schema */
 const memberSchema = new mongoose.Schema(
     {
-        Id: Number,
-        Name: String,
-        Email: String,
-        City: String,
+        id: Number,
+        name: String,
+        email: String,
+        city: String,
     },
     { versionKey: false }
 );

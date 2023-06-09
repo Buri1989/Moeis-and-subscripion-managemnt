@@ -5,18 +5,20 @@ const ModelSubscriptions = require('../models/ModelSubscriptions');
 /*Get all movies and dates in the subscription collection */
 const getAllDataFromSubscriptions = async () => {
     try {
-        return subscriptions = await ModelSubscriptions.find().populate('Movies.movieId', 'Name');
+        return subscriptions = await ModelSubscriptions.find().populate('movies.movieId', 'name');
     } catch (err) {
         console.log(err.message);
     }
 };
 
 /* Get movies and dates in the subscription collection by member ID*/
-const getMemberSubscriptions = async (MemberId) => {
+const getMemberSubscriptionsById = async (memberId) => {
     try {
-        return subscriptions = await ModelSubscriptions.findById({ MemberId }).populate('Movies.movieId', 'Name');
+        const subscriptions = await ModelSubscriptions.findById({ memberId }).populate('movies.movieId', 'name');
         if (!subscriptions) {
             throw new Error('Subscription not found');
+        } else {
+            return subscriptions
         }
     } catch (err) {
         throw new Error(err.message);
@@ -24,20 +26,20 @@ const getMemberSubscriptions = async (MemberId) => {
 };
 
 /*Add a movie and its date to a member's subscription */
-const addMovieToSubscription = async (MemberId, movieId, date) => {
+const addMovieToSubscription = async (memberId, movieId, date) => {
     try {
-        const member = await ModelMembers.findById(MemberId);
+        const member = await ModelMembers.findById(memberId);
         const movie = await ModelMovies.findById(movieId);
         if (!member || !movie) {
             throw new Error('Member or movie not found');
         };
 
-        const subscription = await ModelSubscriptions.findOne({ MemberId });
+        const subscription = await ModelSubscriptions.findOne({ memberId });
         if (!subscription) {
             throw new Error('Subscription not found');
         }
 
-        subscription.Movies.push({ movieId, date });
+        subscription.movies.push({ movieId, date });
         await subscription.save();
 
         return 'Movie added to subscription successfully';
@@ -47,9 +49,9 @@ const addMovieToSubscription = async (MemberId, movieId, date) => {
 };
 
 /*Delete a movie and its date from a member's subscription */
-const deleteMovieFromSubscription = async (MemberId, movieId) => {
+const deleteMovieFromSubscription = async (memberId, movieId) => {
     try {
-        const subscription = await ModelSubscriptions.findOne({ MemberId });
+        const subscription = await ModelSubscriptions.findOne({ memberId });
         if (!subscription) {
             throw new Error('Subscription not found');
         };
@@ -60,7 +62,7 @@ const deleteMovieFromSubscription = async (MemberId, movieId) => {
             throw new Error('Movie not found in subscription');
         };
 
-        subscription.Movies.splice(movieIndex, 1);
+        subscription.movies.splice(movieIndex, 1);
         await subscription.save();
 
         return 'Movie deleted from subscription successfully';
@@ -69,4 +71,4 @@ const deleteMovieFromSubscription = async (MemberId, movieId) => {
     }
 };
 
-module.exports = { getAllDataFromSubscriptions, getMemberSubscriptions, addMovieToSubscription, deleteMovieFromSubscription };
+module.exports = { getAllDataFromSubscriptions, getMemberSubscriptionsById, addMovieToSubscription, deleteMovieFromSubscription };
