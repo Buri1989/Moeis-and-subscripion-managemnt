@@ -2,11 +2,11 @@ const mongoose = require('mongoose');
 
 
 const subscriptionSchema = new mongoose.Schema({
-    memberId: {
+    MemberId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Member',
     },
-    movies: [{
+    Movies: [{
         movieId: {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Movie'

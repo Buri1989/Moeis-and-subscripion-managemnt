@@ -5,11 +5,11 @@ const fetchMoviesData = async () => {
     try {
         const response = await movieWS.getAllMovies();
         return response.data.map((show) => ({
-            id: show.id,
-            name: show.name,
-            genres: show.genres,
-            premiered: new Date(show.premiered),
-            image: {
+            Id: show.id,
+            Name: show.name,
+            Genres: show.genres,
+            Premiered: new Date(show.premiered),
+            Image: {
                 medium: show.image.medium,
                 original: show.image.original,
             },
