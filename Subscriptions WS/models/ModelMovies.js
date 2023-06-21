@@ -3,10 +3,14 @@ const mongoose = require('mongoose');
 /*Movies Schema */
 const movieSchema = new mongoose.Schema(
     {
+        id: Number,
         name: String,
         genres: [String],
-        image: String,
-        premiered: Date
+        premiered: Date,
+        image: {
+            medium: String,
+            original: String,
+        },
     },
     { versionKey: false }
 );

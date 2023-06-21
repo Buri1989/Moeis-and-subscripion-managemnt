@@ -2,11 +2,16 @@ const mongoose = require('mongoose');
 
 
 const subscriptionSchema = new mongoose.Schema({
-    memberId: String,
+    memberId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Member',
+    },
     movies: [{
+        movieId: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Movie'
+        },
         date: Date,
-        movieId: String,
-
     }]
 }, { versionKey: false }
 );
