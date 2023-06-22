@@ -1,27 +1,34 @@
-const movieWS = require('../DAL/moviesWS');
 const Movie = require('../models/ModelMovies');
 
-const fetchMoviesData = async () => {
-    try {
-        const response = await movieWS.getAllMovies();
-        return response.data.map((show) => ({
-            id: show.id,
-            name: show.name,
-            genres: show.genres,
-            premiered: new Date(show.premiered),
-            image: {
-                medium: show.image.medium,
-                original: show.image.original,
-            },
-        }))
-    } catch (err) {
-        console.log(err.message);
-    }
+//Get All
+const getAllMovies = async (filters) => {
+    return Movie.find(filters);
+}
+
+// GET - Get By Id
+const getMovieById = async (id) => {
+    return Movie.findById({ _id: id });
 };
 
-const storeMoviesData = async () => {
-    const moviesData = await fetchMoviesData();
-    return Movie.insertMany(moviesData);
+
+// POST - Create in DB
+const addMovie = async (obj) => {
+    const mov = new Movie(obj);
+    const savedMovie = await mov.save();
+    const newMovieId = savedMovie._id;
+    return newMovieId;
 };
 
-module.exports = { fetchMoviesData, storeMoviesData };
+// PUT - Update
+const updateMovie = async (id, obj) => {
+    await Movie.findByIdAndUpdate(id, obj);
+    return 'Movie Updated!';
+};
+
+// DELETE - Delete
+const deleteMovie = async (id) => {
+    await Movie.findByIdAndDelete(id);
+    return 'Movie Deleted!';
+};
+
+module.exports = { getAllMovies, getMovieById, addMovie, updateMovie, deleteMovie, }

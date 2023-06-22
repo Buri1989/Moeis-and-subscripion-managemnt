@@ -1,74 +1,48 @@
-const ModelMembers = require('../models/ModelMembers');
-const ModelMovies = require('../models/ModelMovies');
 const ModelSubscriptions = require('../models/ModelSubscriptions');
 
-/*Get all movies and dates in the subscription collection */
-const getAllDataFromSubscriptions = async () => {
-    try {
-        return subscriptions = await ModelSubscriptions.find().populate('movies.movieId', 'name');
-    } catch (err) {
-        console.log(err.message);
-    }
+//Get All
+const getAllSubscriptions = () => {
+    return ModelSubscriptions.find({});
+}
+
+// GET - Get By Id
+const getSubscriptionById = (id) => {
+    return ModelSubscriptions.findById({ _id: id });
 };
 
-/* Get movies and dates in the subscription collection by member ID*/
-const getMemberSubscriptionsById = async (memberId) => {
-    try {
-        const subscriptions = await ModelSubscriptions.findById({ memberId }).populate('movies.movieId', 'name');
-        if (!subscriptions) {
-            throw new Error('Subscription not found');
-        } else {
-            return subscriptions
+// POST - Create in DB
+const addSubscription = async (obj) => {
+    const allSubscriptions = await ModelSubscriptions.find({});
+    const subscription = allSubscriptions.find((item) => item.memberId === obj.memberId);
+    if (!subscription) {
+        const sub = new ModelSubscriptions(obj);
+        const newSub = await sub.save();
+        return newSub;
+    }
+    else {
+        const newMovie = {
+            movieId: obj.movies.movieId,
+            date: obj.movies.date
         }
-    } catch (err) {
-        throw new Error(err.message);
+        subscription.movies.push(newMovie);
+        const sub = await subscription.save();
+        return sub
     }
+
 };
-
-/*Add a movie and its date to a member's subscription */
-const addMovieToSubscription = async (memberId, movieId, date) => {
-    try {
-        const member = await ModelMembers.findById(memberId);
-        const movie = await ModelMovies.findById(movieId);
-        if (!member || !movie) {
-            throw new Error('Member or movie not found');
-        };
-
-        const subscription = await ModelSubscriptions.findOne({ memberId });
-        if (!subscription) {
-            throw new Error('Subscription not found');
-        }
-
-        subscription.movies.push({ movieId, date });
-        await subscription.save();
-
-        return 'Movie added to subscription successfully';
-    } catch (err) {
-        throw new Error(`This: ${err.message} occurred while adding the movie to the subscription `);
-    }
+// PUT - Update Subscription 
+const updateSubscription = async (id, obj) => {
+    const allSubscriptions = await ModelSubscriptions.find({});
+    allSubscriptions.map(async (sub) => {
+        await ModelSubscriptions.updateOne({ memberId: sub.memberId }, { $pull: { movies: { movieId: id } } })
+    })
+    return ' Updated!';
 };
-
-/*Delete a movie and its date from a member's subscription */
-const deleteMovieFromSubscription = async (memberId, movieId) => {
-    try {
-        const subscription = await ModelSubscriptions.findOne({ memberId });
-        if (!subscription) {
-            throw new Error('Subscription not found');
-        };
-
-        const movieIndex = subscription.Movies.findIndex((movie) => movie.movieId.toString() === movieId)
-
-        if (movieIndex === -1) {
-            throw new Error('Movie not found in subscription');
-        };
-
-        subscription.movies.splice(movieIndex, 1);
-        await subscription.save();
-
-        return 'Movie deleted from subscription successfully';
-    } catch (err) {
-        throw new Error(`This: ${err.message} occurred while adding the movie to the subscription `);
-    }
+// DELETE - Delete
+const deleteSubscription = async (id) => {
+    const allSubscriptions = await ModelSubscriptions.find({});
+    const subscription = allSubscriptions.find((item) => item.memberId === id);
+    await ModelSubscriptions.findByIdAndDelete(subscription._id);
+    return ' Deleted!';
 };
-
-module.exports = { getAllDataFromSubscriptions, getMemberSubscriptionsById, addMovieToSubscription, deleteMovieFromSubscription };
+module.exports = { getAllSubscriptions, getSubscriptionById, addSubscription, updateSubscription, deleteSubscription }

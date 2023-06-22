@@ -1,52 +1,43 @@
 const express = require('express');
 const subscriptionBLL = require('../BLL/subscriptionsBLL');
-const Movie = require('../models/ModelMovies');
+
 
 const router = express.Router();
 
 /*Entry point - 'http://localhost:8888/subscriptions' */
-/*Get all movies and dates in the subscription collection */
+
+//Get all subscriptions
 router.route('/').get(async (req, res) => {
-    try {
-        const subscriptions = await subscriptionBLL.getAllDataFromSubscriptions();
-        res.status(200).json(subscriptions);
-    } catch (err) {
-        res.status(500).json(`The error is: ${err.message}`);
-    }
+    const subscriptions = await subscriptionBLL.getAllSubscriptions();
+    res.json(subscriptions);
 });
 
-/*Get movies and dates in the subscription collection by member ID*/
-router.route('/:memberId').get(async (req, res) => {
-    try {
-        const { memberId } = req.params;
-        const movies = await subscriptionBLL.getMemberSubscriptionsById(memberId);
-        res.status(200).json(movies);
-    } catch (err) {
-        res.status(500).json(`The error is: ${err.message}`);
-    }
-});
-
-/*Add a movie and its date to a member's subscription */
-router.route('/:memberId / add-movie').post(async (req, res) => {
-    try {
-        const { memberId } = req.params;
-        const { movieId, date } = req.body;
-        const message = await subscriptionBLL.addMovieToSubscription(memberId, movieId, date);
-        res.status(200).json(message);
-    } catch (err) {
-        res.status(500).json(`The error is: ${err.message}`);
-    }
-});
-
-/*Delete a movie and its date from member's subscription */
-router.route('/:memberId/delete-movie/:movieId').delete(async (req, res) => {
-    try {
-        const { memberId, movieId } = req.params;
-        const message = await subscriptionBLL.deleteMovieFromSubscription(memberId, movieId);
-        res.status(200).json(message);
-    } catch (err) {
-        res.status(500).json(`The error is: ${err.message}`);
-    }
+//Get subscription by id
+router.route('/:id').get(async (req, res) => {
+    const { id } = req.params;
+    const subscription = await subscriptionBLL.getSubscriptionById(id);
+    res.json(subscription);
 })
 
+//Add subscription
+router.route('/').post(async (req, res) => {
+    const obj = req.body;
+    const result = await subscriptionBLL.addSubscription(obj);
+    res.json(result);
+})
+
+//Update subscription
+router.route('/:id').put(async (req, res) => {
+    const { id } = req.params;
+    const obj = req.body;
+    const result = await subscriptionBLL.updateSubscription(id, obj);
+    res.json(result);
+})
+
+//Delete movie
+router.route('/:id').delete(async (req, res) => {
+    const { id } = req.params;
+    const result = await subscriptionBLL.deleteSubscription(id);
+    res.json(result);
+})
 module.exports = router;
