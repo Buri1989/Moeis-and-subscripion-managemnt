@@ -8,36 +8,58 @@ const router = express.Router();
 
 //Get all subscriptions
 router.route('/').get(async (req, res) => {
-    const subscriptions = await subscriptionBLL.getAllSubscriptions();
-    res.json(subscriptions);
+    try {
+        const subscriptions = await subscriptionBLL.getAllSubscriptions();
+        res.status(200).json(subscriptions);
+    } catch (err) {
+        res.status(500).json(`The error is: ${err.message}`);
+    }
 });
 
 //Get subscription by id
 router.route('/:id').get(async (req, res) => {
-    const { id } = req.params;
-    const subscription = await subscriptionBLL.getSubscriptionById(id);
-    res.json(subscription);
-})
+    try {
+        const { id } = req.params;
+        const subscription = await subscriptionBLL.getSubscriptionById(id);
+        res.status(200).json(subscription);
+    } catch (err) {
+        res.status(500).json(`The error is: ${err.message}`);
+    }
+
+});
 
 //Add subscription
 router.route('/').post(async (req, res) => {
-    const obj = req.body;
-    const result = await subscriptionBLL.addSubscription(obj);
-    res.json(result);
-})
+    try {
+        const obj = req.body;
+        const result = await subscriptionBLL.addSubscription(obj);
+        res.status(200).json(result);
+    } catch (err) {
+        res.status(500).json(`The error is: ${err.message}`);
+    }
+});
 
 //Update subscription
 router.route('/:id').put(async (req, res) => {
-    const { id } = req.params;
-    const obj = req.body;
-    const result = await subscriptionBLL.updateSubscription(id, obj);
-    res.json(result);
-})
+    try {
+        const { id } = req.params;
+        const obj = req.body;
+        const result = await subscriptionBLL.updateSubscription(id, obj);
+        res.status(200).json(result);
+    } catch (err) {
+        res.status(500).json(`The error is: ${err.message}`);
+    }
+});
 
 //Delete movie
 router.route('/:id').delete(async (req, res) => {
-    const { id } = req.params;
-    const result = await subscriptionBLL.deleteSubscription(id);
-    res.json(result);
-})
+    try {
+        const { id } = req.params;
+        const result = await subscriptionBLL.deleteSubscription(id);
+        res.status(200).json(result);
+    } catch (err) {
+        res.status(500).json(`The error is: ${err.message}`);
+    }
+});
+
 module.exports = router;

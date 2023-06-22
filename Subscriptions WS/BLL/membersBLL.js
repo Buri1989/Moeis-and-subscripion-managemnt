@@ -1,32 +1,55 @@
 const Members = require('../models/ModelMembers');
 
 const getAllMembers = async () => {
-    //Get all data from WS and save in DB
-    return Members.find({});
+    try {
+        return await Members.find({});
+    } catch (err) {
+        throw new Error(err.message)
+    }
+
 }
 
 // GET - Get By Id
 const getMemberById = (id) => {
-    return Members.findById({ _id: id });
+    try {
+        return Members.findById({ _id: id });
+    } catch (err) {
+        throw new Error(err.message)
+    }
 };
 
 // POST - Create in DB
 const addMember = async (obj) => {
-    const mem = new Members(obj);
-    const savedMember = await mem.save();
-    const newMemberId = savedMember._id;
-    return newMemberId;
+    try {
+        const mem = new Members(obj);
+        const savedMember = await mem.save();
+        const newMemberId = savedMember._id;
+        return newMemberId;
+    } catch (err) {
+        throw new Error(err.message)
+    }
+
 };
 
 // PUT - Update
 const updateMember = async (id, obj) => {
-    await Members.findByIdAndUpdate(id, obj);
-    return 'Member Updated!';
+    try {
+        await Members.findByIdAndUpdate(id, obj);
+        return 'Member Updated!';
+    } catch (err) {
+        throw new Error(err.message)
+    }
+
 };
 
 // DELETE - Delete
 const deleteMember = async (id) => {
-    await Members.findByIdAndDelete(id);
-    return 'Member Deleted!';
+    try {
+        await Members.findByIdAndDelete(id);
+        return 'Member Deleted!';
+    } catch (err) {
+        throw new Error(err.message)
+    }
+
 };
 module.exports = { getAllMembers, getMemberById, addMember, updateMember, deleteMember }
