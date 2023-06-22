@@ -1,0 +1,11 @@
+{
+    "users": [
+        {
+            "id": "6493a7ef0a4acb58f776a4ff",
+            "firstName": "Boris",
+            "lastName": "Sverdlov",
+            "sessionTimeOut": 60,
+            "createdData": "2023-06-22"
+        }
+    ]
+}
