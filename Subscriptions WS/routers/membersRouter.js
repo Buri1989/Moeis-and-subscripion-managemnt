@@ -31,7 +31,7 @@ router.route('/').post(async (req, res) => {
     try {
         const obj = req.body;
         const result = await membersBLL.addMember(obj);
-        res.status(200).json(result);
+        res.status(201).json(result);
     } catch (err) {
         res.status(500).json(`The error is: ${err.message}`);
     }
