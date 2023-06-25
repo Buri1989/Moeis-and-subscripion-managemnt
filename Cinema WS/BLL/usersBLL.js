@@ -123,11 +123,11 @@ const signUpIntoSystem = async (object) => {
                     if (user) {
                         return 'User data created successfully'
                     } else {
-                        console.log(`The user data was not created because of: ${err.message}`)
+                        return 0;
                     }
                 }
             } else {
-                console.log(`The user document was not created because of: ${err.message}`)
+                return 1;
             }
         }
     } catch (err) {
