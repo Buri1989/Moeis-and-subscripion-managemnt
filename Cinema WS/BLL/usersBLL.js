@@ -66,7 +66,7 @@ const getAUserDataByUsername = async (username) => {
 };
 
 /*Signup - POST */
-const signUpIntoSystem = async (object) => {
+const newUserSignUp = async (object) => {
     try {
         const countDocumentsFromDB = await userModel.countDocuments({});
         if (countDocumentsFromDB === 0) {
@@ -249,7 +249,7 @@ const deleteUser = async (id) => {
 module.exports = {
     getAllUsersFromFilesAndDB,
     getAUserDataByUsername,
-    signUpIntoSystem,
+    newUserSignUp,
     createNewUser,
     updateMember,
     deleteUser,
