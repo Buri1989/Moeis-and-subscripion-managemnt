@@ -1,3 +1,9 @@
 {
-  "cSpell.words": ["signin"]
+  "cSpell.words": [
+    "ADDMEMBER",
+    "DELETEMEMBERS",
+    "DELETESUBSCRIPTION",
+    "LOADMOVIES",
+    "signin"
+  ]
 }
