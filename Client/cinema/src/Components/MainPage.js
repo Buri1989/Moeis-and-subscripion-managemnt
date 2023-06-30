@@ -84,6 +84,7 @@ const MainPage = () => {
                     <Button sx={{ paddingLeft: "430px" }} disabled onClick={() => navigate(`/mainPage/usersManagement/usersData`)}>Expiration time:{time} seconds</Button>
                 </Typography>
             </AppBar>
+            <Outlet />
         </Container>
     );
 };
