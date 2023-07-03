@@ -26,7 +26,7 @@ const SubscribeToNewMovie = () => {
             movies: {
                 ...prevMovieData.movies,
                 movieId: event.target.value
-            };
+            }
         }));
     };
     const handleDataChange = (event) => {
