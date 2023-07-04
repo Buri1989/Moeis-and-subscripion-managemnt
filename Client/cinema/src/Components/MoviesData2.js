@@ -17,11 +17,11 @@ const MoviesData2 = () => {
     const user = JSON.parse(userOnline);
     let showName = location.state;
 
-    const deleteMovie = async (movID) => {
-        dispatch({ type: 'DELETEMOVIE', payload: movID });
+    const deleteMovie = async (movieID) => {
+        dispatch({ type: 'DELETEMOVIE', payload: movieID });
         /*delete in DB 'http://localhost:8888/movies'  and   'http://localhost:8888/subscriptions'*/
-        await axios.delete(`${'http://localhost:8888/movies'}/${movID}`);
-        await axios.put(`${'http://localhost:8888/subscriptions'}/${movID}`, movID)
+        await axios.delete(`${'http://localhost:8888/movies'}/${movieID}`);
+        await axios.put(`${'http://localhost:8888/subscriptions'}/${movieID}`, movieID)
     }
     return (
         <Container sx={{ marginTop: 5 }}>
