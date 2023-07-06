@@ -36,7 +36,7 @@ const storeReducer = (state = initialValue, action) => {
         /*Members */
         case 'LOADMEMBERS':
             return { ...state, members: action.payload };
-        case 'UPDATEMEMBERS': {
+        case 'UPDATEMEMBER': {
             const updatedMember = action.payload;
             const updatedMembers = state.members.map(member => {
                 if (member._id === updatedMember._id) {
@@ -51,7 +51,7 @@ const storeReducer = (state = initialValue, action) => {
             const updatedMembers = [...state.members, newMember];
             return { ...state, members: updatedMembers };
         };
-        case 'DELETEMEMBERS': {
+        case 'DELETEMEMBER': {
             const memberId = action.payload;
             const updatedMembers = state.members.filter(member => member._id !== memberId);
             return { ...state, members: updatedMembers };

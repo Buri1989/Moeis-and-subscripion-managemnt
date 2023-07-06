@@ -70,7 +70,7 @@ router.route('/signin').post(async (req, res) => {
 });
 
 /*POST - Create new user */
-router.route('/') / post(async (req, res) => {
+router.route('/').post(async (req, res) => {
     try {
         const object = req.body;
         const result = await usersBLL.createNewUser(object);
